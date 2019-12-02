@@ -101,11 +101,6 @@ typedef NS_ENUM(NSInteger, WJSwitchPagesDirection) {
     NSInteger nextIndex = self.direction == WJSwitchPagesDirectionLeft ? index : index + 1;//下一个index
     CGFloat progress = (scrollView.contentOffset.x - scrollView.frame.size.width * currentIndex) / scrollView.frame.size.width;
     [self.pagesBar showAnimationWithProgress:progress currentIndex:currentIndex nextIndex:nextIndex];
-    
-    
-    
-//    CGFloat progress = scrollView.contentOffset.x - scrollView.bounds.size.width * self.pagesBar.selectedIndex;
-//    self.pagesBar.animationProgress = progress / scrollView.bounds.size.width;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
