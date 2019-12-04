@@ -255,6 +255,9 @@ typedef NS_ENUM(NSInteger, WJSwitchPagesDirection) {
     for (UIView<WJSwitchPagesBarItemProtocol> *item in self.itemArray) {
         [item setCurrentColor:item == newItem ? [item selectedColor] : [item normalColor]];
     }
+    if ([self.delegate respondsToSelector:@selector(switchPagesBar:didSelectItemIndex:)]) {
+        [self.delegate switchPagesBar:self didSelectItemIndex:index];
+    }
     if (self.scrollView.contentSize.width <= self.scrollView.frame.size.width) return;
     //让item在scrollView中居中显示
     CGFloat offsetX = newItem.center.x - self.frame.size.width / 2.0;
@@ -274,9 +277,6 @@ typedef NS_ENUM(NSInteger, WJSwitchPagesDirection) {
             self.indexView.frame = frame;
             [self.scrollView addSubview:self.indexView];
         }
-    }
-    if ([self.delegate respondsToSelector:@selector(switchPagesBar:didSelectItemIndex:)]) {
-        [self.delegate switchPagesBar:self didSelectItemIndex:index];
     }
 }
 
