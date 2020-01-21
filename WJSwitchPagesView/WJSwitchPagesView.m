@@ -258,13 +258,7 @@ typedef NS_ENUM(NSInteger, WJSwitchPagesDirection) {
     if ([self.delegate respondsToSelector:@selector(switchPagesBar:didSelectItemIndex:)]) {
         [self.delegate switchPagesBar:self didSelectItemIndex:index];
     }
-    if (self.scrollView.contentSize.width <= self.scrollView.frame.size.width) return;
-    //让item在scrollView中居中显示
-    CGFloat offsetX = newItem.center.x - self.frame.size.width / 2.0;
-    if (offsetX < 0) offsetX = 0;
-    CGFloat offsetMax = self.scrollView.contentSize.width - self.frame.size.width;
-    if (offsetX > offsetMax && offsetMax > 0) offsetX = offsetMax;
-    [self.scrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
+    
     if (self.indexView) {
         CGRect frame = self.indexView.frame;
         frame.origin.x = CGRectGetMinX(newItem.frame) + (CGRectGetWidth(newItem.frame) - self.indexViewWidth) / 2.0;
@@ -278,6 +272,15 @@ typedef NS_ENUM(NSInteger, WJSwitchPagesDirection) {
             [self.scrollView addSubview:self.indexView];
         }
     }
+    
+    if (self.scrollView.contentSize.width <= self.scrollView.frame.size.width) return;
+    //让item在scrollView中居中显示
+    CGFloat offsetX = newItem.center.x - self.frame.size.width / 2.0;
+    if (offsetX < 0) offsetX = 0;
+    CGFloat offsetMax = self.scrollView.contentSize.width - self.frame.size.width;
+    if (offsetX > offsetMax && offsetMax > 0) offsetX = offsetMax;
+    [self.scrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
+    
 }
 
 - (void)scrollToItemIndex:(NSInteger)index {
